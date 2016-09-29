@@ -11,6 +11,7 @@ set resource_dir=YOUR_RESOURCE_DIRECTORY
 set maintenance_dir=YOUR_MAINTENANCE_DIRECTORY
 set backup_dir=YOUR_BACKUP_DIRECTORY
 set remote_dir=YOUR_REMOTE_DIRECTORY
+set site_dir_name=YOUR_SITE_DIRECTORY_NAME
 
 REM -------------------------
 REM Dont edit below this line
@@ -41,7 +42,7 @@ echo lcd %maintenance_dir%>> ftp.tmp
 echo put index.html>> ftp.tmp
 echo put .htaccess>> ftp.tmp
 echo quit>> ftp.tmp
-ftp -n -s:ftp.tmp cpanel8.tarhelypark.hu
+ftp -n -s:ftp.tmp %server%
 del ftp.tmp
 
 REM echo -------------------------
@@ -53,13 +54,21 @@ cd %backup_dir%
 rename index.php index_original.php
 rename index.html index_original.html
 rename .htaccess .htaccess_original
-ncftpget -u %user% -p %password% -R -DD %server% %remote_dir% %backup_dir%
-delete index.html
-delete index.php
-delete .htaccess
+ncftpget -u %user% -p %password% -R -DD %server% %backup_dir% %remote_dir%
+cd %site_dir_name%
+del index.html
+del index.php
+del .htaccess
+cd ..
 rename index_original.php index.php
 rename index_original.html index.html
 rename .htaccess_original .htaccess
+copy index.php %backup_dir%\%site_dir_name%
+copy index.html %backup_dir%\%site_dir_name%
+copy .htaccess %backup_dir%\%site_dir_name%
+del index.html
+del index.php
+del .htaccess
 
 REM echo -------------------------
 REM echo Backup download completed
