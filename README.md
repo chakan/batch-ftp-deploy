@@ -32,6 +32,7 @@ You need to configure the varibles defined in the beginning of the file.
 * `maintenance_dir` - The local directory that contains the `index.html` and `.htaccess` files, that set your site into maintenance mode. _Example included_
 * `backup_dir` - The local directory you want to copy the backup files to.
 * `remote_dir` - Relative path to the FTP root that defines the remote directory where the files need to be uploaded.
+* `site_dir_name` - The remote directory name on the server your site is in.
 
 ## Blog post and contact
 
