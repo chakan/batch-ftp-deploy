@@ -18,7 +18,7 @@ It requires the [NcFTP](http://www.ncftp.com/) client installed locally. Downloa
 
 ## Usage
 
-You need to configure the varibles defined in the beginning of the file.
+You need to configure the variables defined in the beginning of the file.
 
 ### Connection
 
@@ -28,7 +28,7 @@ You need to configure the varibles defined in the beginning of the file.
 
 ### Directories
 
-* `resource_dir` - The local directory the contains the local files you want to copy to the server.
+* `resource_dir` - The local directory that contains the local files you want to copy to the server.
 * `maintenance_dir` - The local directory that contains the `index.html` and `.htaccess` files, that set your site into maintenance mode. _Example included_
 * `backup_dir` - The local directory you want to copy the backup files to.
 * `remote_dir` - Relative path to the FTP root that defines the remote directory where the files need to be uploaded.
@@ -36,7 +36,7 @@ You need to configure the varibles defined in the beginning of the file.
 
 ## Blog post and contact
 
-I wrote a blog post about it in Hungarian, that you can check out here: [Automatizáld az FTP-re másolást](https://blog.serpens.hu/automatizald-az-ftpre-masolast)
+I wrote a blog post about this in Hungarian, that you can check out here: [Automatizáld az FTP-re másolást](https://blog.serpens.hu/automatizald-az-ftpre-masolast)
 
 You can contact me on Twitter if you want.
 
