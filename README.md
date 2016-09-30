@@ -20,6 +20,10 @@ It requires the [NcFTP](http://www.ncftp.com/) client installed locally. Downloa
 
 You need to configure the variables defined in the beginning of the file.
 
+### Debug mode
+
+* `debug` - If you set this to `true`, the script will wait for a keystroke before every major step.
+
 ### Connection
 
 * `user` - The FTP user
