@@ -1,6 +1,9 @@
 @echo off
 title Batch FTP Deploy - Basic Deploy
 
+REM Debug mode
+set debug=false
+
 REM Connetion variables
 set user=YOUR_USERNAME
 set password=YOUR_PASSWORD
@@ -22,9 +25,9 @@ REM We need to wait here a bit, because sometimes it creates the dir before dele
 ping 127.0.0.1 -n 1
 mkdir %backup_dir%
 
-REM echo ---------------------------------------------------------------------------
-REM echo Local backup deleted, we are starting maintenance mode next
-REM pause
+echo ---------------------------------------------------------------------------
+echo Local backup deleted, we are starting maintenance mode next
+if %debug%==true pause
 
 REM Set starting dir just in case the connection fails
 cd %backup_dir%
@@ -48,10 +51,10 @@ echo quit>> ftp.tmp
 ftp -n -s:ftp.tmp %server%
 del ftp.tmp
 
-REM echo ---------------------------------------------------------------------------
-REM echo Site was set into maintenance mode, possible index.html and .htaccess were downloaded
-REM echo We are downloading and deleting remote files next
-REM pause
+echo ---------------------------------------------------------------------------
+echo Site was set into maintenance mode, possible index.html and .htaccess were downloaded
+echo We are downloading and deleting remote files next
+if %debug%==true pause
 
 REM Download server files
 cd %backup_dir%
@@ -65,18 +68,18 @@ copy .htaccess %backup_dir%\%site_dir_name%
 del index.html
 del .htaccess
 
-REM echo ---------------------------------------------------------------------------
-REM echo Backup download completed and all files on the server were deleted
-REM echo We are about to enable maintenance mode again
+echo ---------------------------------------------------------------------------
+echo Backup download completed and all files on the server were deleted
+echo We are about to enable maintenance mode again
 
 REM Upload maintenance mode files again before we start the upload
 cd %maintenance_dir%
 ncftpput -u %user% -p %password% -R %server% %remote_dir% index.html
 ncftpput -u %user% -p %password% -R %server% %remote_dir% .htaccess
 
-REM echo ---------------------------------------------------------------------------
-REM echo Maintenance mode was enabled again, upload is next
-REM pause
+echo ---------------------------------------------------------------------------
+echo Maintenance mode was enabled again, upload is next
+if %debug%==true pause
 
 REM Upload local files
 cd %resource_dir%
@@ -84,9 +87,9 @@ rename index.html index_original.html
 rename .htaccess .htaccess_original
 ncftpput -u %user% -p %password% -R %server% %remote_dir% .\*
 
-REM echo ---------------------------------------------------------------------------
-REM echo Resource upload completed, we are going live next
-REM pause
+echo ---------------------------------------------------------------------------
+echo Resource upload completed, we are going live next
+if %debug%==true pause
 
 REM FTP connection
 echo user %user%> ftp.tmp
@@ -103,6 +106,6 @@ echo quit>> ftp.tmp
 ftp -n -s:ftp.tmp %server%
 del ftp.tmp
 
-REM echo ---------------------------------------------------------------------------
-REM echo Site is now live! You can access the backup here: %backup_dir%
-REM pause
+echo ---------------------------------------------------------------------------
+echo Site is now live! You can access the backup here: %backup_dir%
+pause
